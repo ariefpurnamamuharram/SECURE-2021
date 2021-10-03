@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Export\ExportPesertaController;
 use App\Http\Controllers\Import\ImportPesertaController;
+use App\Models\Peserta;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    Peserta::query()->truncate();
+
     return view('welcome');
 });
 
 Route::post('impor-peserta', [ImportPesertaController::class, 'import'])->name('import.peserta');
+
+Route::post('export-peserta-to-excel', [ExportPesertaController::class, 'exportToExcel'])->name('export.peserta.to.excel');

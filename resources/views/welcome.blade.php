@@ -28,7 +28,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('import.peserta') }}" method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="custom-file">
                     <input type="file" class="custom-file-input @error('fileCSV') is-invalid @enderror" id="fileCSV"
@@ -38,8 +38,12 @@
                 </div>
 
                 <div class="d-flex justify-content-end pt-4">
-                    <button class="btn btn-success">
-                        Impor File
+                    <button class="btn btn-success mx-1" formaction="{{ route('export.peserta.to.excel') }}">
+                        Ekspor ke Excel (.xlsx)
+                    </button>
+
+                    <button class="btn btn-success mx-1" formaction="{{ route('import.peserta') }}">
+                        Lihat Data Peserta
                     </button>
                 </div>
             </form>
@@ -52,14 +56,14 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr class="font-weight-bold" style="background-color: #e5e5e5;">
-                <th>Tanggal Pembelian</th>
-                <th>Nama</th>
-                <th>Pekerjaan</th>
-                <th>Instansi</th>
-                <th>Email</th>
-                <th>Nomor Telepon</th>
-                <th>Jenis Tiket</th>
-                <th>Yang Mendaftarkan</th>
+                <th class="align-middle">Tanggal Pembelian</th>
+                <th class="align-middle">Nama</th>
+                <th class="align-middle">Pekerjaan</th>
+                <th class="align-middle">Instansi</th>
+                <th class="align-middle">Email</th>
+                <th class="align-middle">Nomor Telepon</th>
+                <th class="align-middle">Jenis Tiket</th>
+                <th class="align-middle">Yang Mendaftarkan</th>
             </tr>
             </thead>
             <tbody>
@@ -70,7 +74,14 @@
             @else
                 @foreach($peserta as $data)
                     <tr>
+                        <td>{{ $data->tanggal_pembelian }}</td>
                         <td>{{ $data->nama }}</td>
+                        <td>{{ $data->pekerjaan }}</td>
+                        <td>{{ $data->instansi }}</td>
+                        <td>{{ $data->email }}</td>
+                        <td>{{ $data->nomor_telepon }}</td>
+                        <td>{{ $data->jenis_tiket }}</td>
+                        <td>{{ $data->yang_mendaftarkan }}</td>
                     </tr>
                 @endforeach
             @endif

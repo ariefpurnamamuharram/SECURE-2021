@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Import;
+namespace App\Http\Controllers\Export;
 
 use App\Exports\ExportPeserta;
 use App\Http\Controllers\Controller;
@@ -9,9 +9,9 @@ use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ImportPesertaController extends Controller
+class ExportPesertaController extends Controller
 {
-    public function import(Request $request)
+    public function exportToExcel(Request $request)
     {
         $request->validate([
             'fileCSV' => 'required',
@@ -21,11 +21,6 @@ class ImportPesertaController extends Controller
 
         Excel::import(new ImportPeserta(), $request->file('fileCSV'));
 
-        $peserta = Peserta::all()->sortByDesc('tanggal_pembelian');
-        Peserta::query()->truncate();
-
-        return view('welcome', [
-            'peserta' => $peserta,
-        ]);
+        return Excel::download(new ExportPeserta(), 'daftar_peserta_secure_2021.xlsx')->deleteFileAfterSend();
     }
 }
