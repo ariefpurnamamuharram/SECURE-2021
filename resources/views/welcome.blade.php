@@ -28,10 +28,11 @@
         </div>
 
         <div class="card-body">
-            <form action="#" method="post" enctype="multipart/form-data">
+            <form action="{{ route('import.peserta') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="fileCsv" name="fileCsv" required>
+                    <input type="file" class="custom-file-input @error('fileCSV') is-invalid @enderror" id="fileCSV"
+                           name="fileCSV" required>
                     <label class="custom-file-label" for="fileCSV">Pilih file CSV...</label>
                     <div class="invalid-feedback">{{ $errors->first() }}</div>
                 </div>
@@ -52,7 +53,7 @@
             <thead>
             <tr class="font-weight-bold" style="background-color: #e5e5e5;">
                 <th>Tanggal Pembelian</th>
-                <th>Nama Pendaftar</th>
+                <th>Nama</th>
                 <th>Pekerjaan</th>
                 <th>Instansi</th>
                 <th>Email</th>
@@ -66,6 +67,12 @@
                 <td class="text-center" colspan="8">
                     --- Belum ada data ---
                 </td>
+            @else
+                @foreach($peserta as $data)
+                    <tr>
+                        <td>{{ $data->nama }}</td>
+                    </tr>
+                @endforeach
             @endif
             </tbody>
         </table>
@@ -75,9 +82,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
         integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
-        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+        integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+
+<script type="text/javascript">
+    $('#fileCSV').on('change', function () {
+        var filename = $(this).val().replace('C:\\fakepath\\', '');
+        $(this).next('.custom-file-label').html(filename);
+    });
+</script>
 </body>
 </html>
