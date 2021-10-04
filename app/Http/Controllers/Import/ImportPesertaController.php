@@ -14,14 +14,16 @@ class ImportPesertaController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'fileCSV' => 'required',
+            'fileCSV' => 'required|mimes:csv',
         ]);
 
         Peserta::query()->truncate();
 
         Excel::import(new ImportPeserta(), $request->file('fileCSV'));
 
-        $peserta = Peserta::all()->sortByDesc('tanggal_pembelian');
+        $peserta = Peserta::orderBy('tanggal_pembelian', 'desc')
+            ->orderBy('jam_pembelian', 'desc')
+            ->get();
         Peserta::query()->truncate();
 
         return view('welcome', [

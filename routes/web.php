@@ -25,3 +25,5 @@ Route::get('/', function () {
 Route::post('impor-peserta', [ImportPesertaController::class, 'import'])->name('import.peserta');
 
 Route::post('export-peserta-to-excel', [ExportPesertaController::class, 'exportToExcel'])->name('export.peserta.to.excel');
+
+Route::post('export-peserta-to-google-contact', [ExportPesertaController::class, 'exportToGoogleContact'])->name('export.peserta.to.google.contact');

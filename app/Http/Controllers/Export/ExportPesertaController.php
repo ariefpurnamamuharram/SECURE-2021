@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Export;
 
 use App\Exports\ExportPeserta;
+use App\Exports\ExportPesertaToGoogleContact;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportPeserta;
 use App\Models\Peserta;
@@ -22,5 +23,18 @@ class ExportPesertaController extends Controller
         Excel::import(new ImportPeserta(), $request->file('fileCSV'));
 
         return Excel::download(new ExportPeserta(), 'daftar_peserta_secure_2021.xlsx')->deleteFileAfterSend();
+    }
+
+    public function exportToGoogleContact(Request $request)
+    {
+        $request->validate([
+            'fileCSV' => 'required',
+        ]);
+
+        Peserta::query()->truncate();
+
+        Excel::import(new ImportPeserta(), $request->file('fileCSV'));
+
+        return Excel::download(new ExportPesertaToGoogleContact(), 'daftar_peserta_secure_2021.csv')->deleteFileAfterSend();
     }
 }

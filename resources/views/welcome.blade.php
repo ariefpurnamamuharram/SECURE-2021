@@ -38,6 +38,10 @@
                 </div>
 
                 <div class="d-flex justify-content-end pt-4">
+                    <button class="btn btn-success mx-1" formaction="{{ route('export.peserta.to.google.contact') }}">
+                        Ekspor ke Google Contact (.csv)
+                    </button>
+
                     <button class="btn btn-success mx-1" formaction="{{ route('export.peserta.to.excel') }}">
                         Ekspor ke Excel (.xlsx)
                     </button>
@@ -52,36 +56,47 @@
 
     <!-- Tabel peserta -->
     <h2 class="pt-4">Data Peserta</h2>
+    <span>Jumlah peserta: @if(!empty($peserta)) {{ count($peserta) }} @else - @endif orang</span>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
             <tr class="font-weight-bold" style="background-color: #e5e5e5;">
+                <th class="align-middle">No.</th>
                 <th class="align-middle">Tanggal Pembelian</th>
+                <th class="align-middle">Jam Pembelian</th>
                 <th class="align-middle">Nama</th>
                 <th class="align-middle">Pekerjaan</th>
                 <th class="align-middle">Instansi</th>
                 <th class="align-middle">Email</th>
                 <th class="align-middle">Nomor Telepon</th>
-                <th class="align-middle">Jenis Tiket</th>
+                <th class="align-middle">Deskripsi Tiket</th>
                 <th class="align-middle">Yang Mendaftarkan</th>
             </tr>
             </thead>
             <tbody>
             @if(empty($peserta))
-                <td class="text-center" colspan="8">
+                <td class="text-center" colspan="10">
                     --- Belum ada data ---
                 </td>
             @else
-                @foreach($peserta as $data)
+                @foreach($peserta as $key => $data)
                     <tr>
-                        <td>{{ $data->tanggal_pembelian }}</td>
-                        <td>{{ $data->nama }}</td>
-                        <td>{{ $data->pekerjaan }}</td>
-                        <td>{{ $data->instansi }}</td>
-                        <td>{{ $data->email }}</td>
-                        <td>{{ $data->nomor_telepon }}</td>
-                        <td>{{ $data->jenis_tiket }}</td>
-                        <td>{{ $data->yang_mendaftarkan }}</td>
+                        <td class="text-nowrap">{{ $loop->index + 1 }}</td>
+                        <td class="text-nowrap">{{ $data->tanggal_pembelian }}</td>
+                        <td class="text-nowrap">{{ $data->jam_pembelian }}</td>
+                        <td class="text-nowrap">{{ $data->nama }}</td>
+                        <td class="text-nowrap">{{ $data->pekerjaan }}</td>
+                        <td class="text-nowrap">{{ $data->instansi }}</td>
+                        <td class="text-nowrap">
+                            <a href="mailto:{{ $data->email }}" target="_blank">{{ $data->email }}</a>
+                        </td>
+                        <td class="text-nowrap">
+                            <a href="tel:{{ $data->nomor_telepon }}" target="_blank">{{ $data->nomor_telepon }}</a>
+                        </td>
+                        <td class="text-nowrap">{{ $data->deskripsi_tiket }}</td>
+                        <td class="text-nowrap">
+                            @if(!empty($data->yang_mendaftarkan)) {{ $data->yang_mendaftarkan }} @else - @endif
+                        </td>
                     </tr>
                 @endforeach
             @endif
