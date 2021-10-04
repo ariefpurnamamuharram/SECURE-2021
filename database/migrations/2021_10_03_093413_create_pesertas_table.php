@@ -14,7 +14,6 @@ class CreatePesertasTable extends Migration
     public function up()
     {
         Schema::create('pesertas', function (Blueprint $table) {
-            $table->id();
             $table->date('tanggal_pembelian');
             $table->time('jam_pembelian');
             $table->string('nama');
@@ -26,6 +25,8 @@ class CreatePesertasTable extends Migration
             $table->string('deskripsi_tiket')->nullable()->default(null);
             $table->string('yang_mendaftarkan')->nullable()->default(null);
             $table->timestamps();
+
+            $table->primary(['nama', 'deskripsi_tiket']);
         });
     }
 
