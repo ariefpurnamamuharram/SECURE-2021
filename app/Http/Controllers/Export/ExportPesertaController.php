@@ -15,7 +15,7 @@ class ExportPesertaController extends Controller
     public function exportToExcel(Request $request)
     {
         $request->validate([
-            'fileCSV' => 'required',
+            'fileExcel' => 'required',
         ]);
 
         Peserta::query()->truncate();
@@ -28,7 +28,7 @@ class ExportPesertaController extends Controller
     public function exportToGoogleContact(Request $request)
     {
         $request->validate([
-            'fileCSV' => 'required',
+            'fileExcel' => 'required',
         ]);
 
         Peserta::query()->truncate();
