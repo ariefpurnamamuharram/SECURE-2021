@@ -28,6 +28,16 @@
         </div>
 
         <div class="card-body">
+            <!-- Alert -->
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <b>Perhatian!</b>
+                <p>Sistem ini hanya mampu mengenali satu pendaftar untuk satu orang. Selain itu, perlu penyesuaian data terlebih dahulu sebelum diimpor ke dalam sistem.</p>
+
+                <!-- Close button -->
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="custom-file">
