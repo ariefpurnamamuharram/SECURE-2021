@@ -9,12 +9,21 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ExportPesertaToGoogleContact implements FromCollection, WithHeadings, WithMapping
 {
+    protected $arg;
+
+    function __construct($arg)
+    {
+        $this->arg = $arg;
+    }
+
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return Peserta::all();
+        return Peserta::orderBy('tanggal_pembelian', 'desc')
+            ->orderBy('jam_pembelian', 'desc')
+            ->whereIn('deskripsi_tiket', $this->arg)->get();
     }
 
     public function headings(): array
