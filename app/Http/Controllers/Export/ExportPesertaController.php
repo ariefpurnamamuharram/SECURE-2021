@@ -20,7 +20,7 @@ class ExportPesertaController extends Controller
 
         Peserta::query()->truncate();
 
-        Excel::import(new ImportPeserta(), $request->file('fileCSV'));
+        Excel::import(new ImportPeserta(), $request->file('fileExcel'));
 
         return Excel::download(new ExportPeserta(), 'daftar_peserta_secure_2021.xlsx')->deleteFileAfterSend();
     }
@@ -33,7 +33,7 @@ class ExportPesertaController extends Controller
 
         Peserta::query()->truncate();
 
-        Excel::import(new ImportPeserta(), $request->file('fileCSV'));
+        Excel::import(new ImportPeserta(), $request->file('fileExcel'));
 
         return Excel::download(new ExportPesertaToGoogleContact(), 'daftar_peserta_secure_2021.csv')->deleteFileAfterSend();
     }
