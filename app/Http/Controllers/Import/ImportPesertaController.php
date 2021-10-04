@@ -14,7 +14,7 @@ class ImportPesertaController extends Controller
     public function import(Request $request)
     {
         $request->validate([
-            'fileCSV' => 'required|mimes:csv',
+            'fileCSV' => 'required|mimes:csv,txt',
         ]);
 
         Peserta::query()->truncate();
