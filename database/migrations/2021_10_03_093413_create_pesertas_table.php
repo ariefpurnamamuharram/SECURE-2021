@@ -16,14 +16,14 @@ class CreatePesertasTable extends Migration
         Schema::create('pesertas', function (Blueprint $table) {
             $table->date('tanggal_pembelian');
             $table->time('jam_pembelian');
-            $table->string('nama', 72);
-            $table->string('pekerjaan', 72)->nullable()->default(null);
-            $table->string('instansi', 72)->nullable()->default(null);
-            $table->string('email', 72);
-            $table->string('nomor_telepon', 72);
+            $table->string('nama', 100);
+            $table->string('pekerjaan', 100)->nullable()->default(null);
+            $table->string('instansi', 100)->nullable()->default(null);
+            $table->string('email', 100);
+            $table->string('nomor_telepon', 100);
             $table->integer('jenis_tiket')->default(0);
-            $table->string('deskripsi_tiket', 72)->nullable()->default(null);
-            $table->string('yang_mendaftarkan', 72)->nullable()->default(null);
+            $table->string('deskripsi_tiket', 100)->nullable()->default(null);
+            $table->string('yang_mendaftarkan', 100)->nullable()->default(null);
             $table->timestamps();
 
             $table->primary(['nama', 'deskripsi_tiket']);
