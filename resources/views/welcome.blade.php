@@ -38,6 +38,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <form method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="custom-file">
